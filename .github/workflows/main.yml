@@ -54,8 +54,10 @@ jobs:
         run: |
           cd ./venv/lib/python3.7/site-packages
           zip -r9 ../../../../api.zip .
+
       - name: Add API files to Zip file
-        run: cd ./api && zip -g ../api.zip -r .
+        run: zip -g ../api.zip -r .
+
       - name: Upload zip file artifact
         uses: actions/upload-artifact@v2
         with:
@@ -79,6 +81,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: api
+
       - name: Upload to S3
         run: aws s3 cp api.zip s3://jartst-dash/api.zip
         env:
